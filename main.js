@@ -5,16 +5,10 @@ async function login() {
   const password = document.getElementById("password").value.trim();
   const errorMsg = document.getElementById("error-msg");
 
-  const formData = new URLSearchParams();
-  formData.append("action", "login");
-  formData.append("email", email);
-  formData.append("password", password);
+  const url = `${API_URL}?action=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
 
   try {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      body: formData
-    });
+    const res = await fetch(url);
     const data = await res.json();
 
     if (data.status === "success") {
